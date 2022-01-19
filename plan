@@ -1,0 +1,5 @@
+1. Print a prompt
+2. Get a line of input
+3. Launch the program, fork(), child: exec() to run the program
+4. Wait for it to finish
+5. Goto 1

@@ -8,8 +8,7 @@
 #include <unistd.h> //fork, execvp
 #include <sys/wait.h> //wait
 
-
-int main(int argc, char *argv[])
+int run_shell()
 {
 	char input[2048];
 	char *new_argv[128];
@@ -32,14 +31,25 @@ int main(int argc, char *argv[])
 		}
 		new_argv[i] = NULL;
 
-		execvp(new_argv[0], new_argv);
+		pid_t pid = fork();
 
-    // If we get here, exec failed
-		perror("exec");
+		if(pid == 0) {
+			execvp(new_argv[0], new_argv);
+			perror("exec");
+			exit(1);
+
+		}
 
 		return 1;
-
-
-
 	}
+}
+
+int command_handler() 
+{
+ return 0;
+}
+
+int main(int argc, char *argv[])
+{
+	run_shell();
 }

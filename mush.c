@@ -31,6 +31,15 @@ int run_shell()
 		}
 		new_argv[i] = NULL;
 
+
+		int cd_check;
+		if(strcmp(new_argv[0], "cd")) {
+			cd_check = chdir(new_argv[1]);
+			if(cd_check == -1) {
+				perror("cd");
+			}
+		}
+
 		pid_t pid = fork();
 
 		if(pid == 0) {

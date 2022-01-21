@@ -35,27 +35,29 @@ int run_shell()
 		int cd_check;
 		if(strcmp(new_argv[0], "cd")) {
 			cd_check = chdir(new_argv[1]);
-			if(cd_check == -1) {
-				perror("cd");
+			if(cd_check == -1)
+				perror("Error");
+		} 
+		else if(strcmp(new_argv[0], "exit"))
+			exit(0);
+		else {
+			pid_t pid = fork();
+
+			if(pid == 0) {
+				execvp(new_argv[0], new_argv);
+				perror("exec");
+				exit(1);
+			}
+			else {
+				wait(NULL);
 			}
 		}
-
-		pid_t pid = fork();
-
-		if(pid == 0) {
-			execvp(new_argv[0], new_argv);
-			perror("exec");
-			exit(1);
-
-		}
-
-		return 1;
 	}
 }
 
 int command_handler() 
 {
- return 0;
+	return 0;
 }
 
 int main(int argc, char *argv[])

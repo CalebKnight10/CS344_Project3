@@ -31,14 +31,13 @@ int run_shell()
 		}
 		new_argv[i] = NULL;
 
-
 		int cd_check;
-		if(strcmp(new_argv[0], "cd")) {
+		if(strcmp(new_argv[0], "cd") == 0) {
 			cd_check = chdir(new_argv[1]);
 			if(cd_check == -1)
 				perror("Error");
 		} 
-		else if(strcmp(new_argv[0], "exit"))
+		else if(strcmp(new_argv[0], "exit") == 0)
 			exit(0);
 		else {
 			pid_t pid = fork();
